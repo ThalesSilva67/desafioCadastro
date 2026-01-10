@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class FileRepository {
-    Path path = Paths.get("src\\develop\\desafio\\cadastro\\forms\\formulario.txt");
+    Path path = Paths.get("formulario.txt");
 
     public void createFile() {
         File file = path.toFile();
@@ -45,7 +45,6 @@ public class FileRepository {
             e.printStackTrace();
         }
     }
-
 
 
 
