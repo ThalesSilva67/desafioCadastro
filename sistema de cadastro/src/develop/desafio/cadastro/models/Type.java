@@ -1,8 +1,8 @@
 package develop.desafio.cadastro.models;
 
 public enum Type {
-    MACHO("Macho"),
-    FEMEA("Femêa");
+    CACHORRO("Cachorro"),
+    GATO("Gato");
 
 
     final String description;
