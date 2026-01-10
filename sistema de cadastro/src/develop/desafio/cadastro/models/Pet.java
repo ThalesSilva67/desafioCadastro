@@ -8,21 +8,23 @@ public class Pet {
     Gender gender;
     Type type;
     Adress adress;
-    double age;
-    double weight;
+    String age;
+    String weight;
+
+    public static final String NAO_INFORMADO = "NAO INFORMADO";
 
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        if(name == null || name.isBlank()) throw new IllegalArgumentException("preencha o nome do pet!");
+        if(name == null || name.isBlank()) throw new IllegalArgumentException("preencha o nome e o sobrenome do pet!");
 
         String regex = "^[\\p{L}-]+\\s+[\\p{L}\\s-]+$";
         if(name.trim().matches(regex)) {
             this.name = name.trim();
         } else {
-            throw new IllegalArgumentException("preencha o nome e o sobrenome do pet!");
+            this.name = NAO_INFORMADO;
         }
     }
 
@@ -31,7 +33,13 @@ public class Pet {
     }
 
     public void setBreed(String breed) {
-        this.breed = breed;
+        if(breed == null) throw new IllegalArgumentException("A raça do pet não pode ser nula");
+        String regex = "^([A-Za-z])\\w+$";
+        if(breed.trim().matches(regex)) {
+            this.breed = breed.trim();
+        } else {
+            this.breed = NAO_INFORMADO;
+        }
     }
 
     public Gender getGender() {
@@ -60,28 +68,48 @@ public class Pet {
         this.adress = adress;
     }
 
-    public double getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(double age) {
-        if(age < 0 || age > 20) throw  new IllegalArgumentException("idade não pode ser negativa ou maior do que 20");
-        this.age = age;
+    public void setAge(String age) {
+        if(age == null || age.isBlank()) {
+            this.age = NAO_INFORMADO;
+            return;
+        }
+        try {
+            float ageFloat = Float.parseFloat(age);
+            if(ageFloat < 0 || ageFloat > 20) throw new IllegalArgumentException("Idade não pode ser negativa ou maior do que 20!");
+            this.age = String.valueOf(ageFloat);
+        } catch(NumberFormatException e) {
+            e.printStackTrace();
+        }
     }
 
-    public double getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
-        if(weight < 0.5 || weight > 60) throw new  IllegalArgumentException("Peso não pode ser negativo ou maior do que 60kg!");
-        this.weight = weight;
+    public void setWeight(String weight) {
+        if(weight == null || weight.isBlank()) {
+            this.weight = NAO_INFORMADO;
+            return;
+        }
+        try {
+            float weightFloat = Float.parseFloat(weight);
+            if(weightFloat < 0.5 || weightFloat > 60) throw new IllegalArgumentException("peso não pode ser menor do que 0.5 ou maior do que 60!");
+            this.weight = String.valueOf(weightFloat);
+        } catch(NumberFormatException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Pet pet = new Pet();
-        pet.setAge(input.nextDouble());
-        System.out.println(pet.getAge());
+        pet.setWeight(input.nextLine());
+        System.out.println(pet.getWeight());
+
     }
 }
