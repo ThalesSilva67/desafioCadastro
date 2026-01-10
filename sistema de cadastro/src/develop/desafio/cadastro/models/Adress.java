@@ -3,7 +3,7 @@ package develop.desafio.cadastro.models;
 public class Adress {
     String street;
     String city;
-    String houseNumber;
+    int houseNumber;
 
     public String getStreet() {
         return street;
@@ -21,11 +21,11 @@ public class Adress {
         this.city = city;
     }
 
-    public String getHouseNumber() {
+    public int getHouseNumber() {
         return houseNumber;
     }
 
-    public void setHouseNumber(String houseNumber) {
+    public void setHouseNumber(int houseNumber) {
         this.houseNumber = houseNumber;
     }
 }
