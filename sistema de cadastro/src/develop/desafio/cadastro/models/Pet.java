@@ -1,12 +1,14 @@
 package develop.desafio.cadastro.models;
 
+import java.util.Scanner;
+
 public class Pet {
     String name;
     String breed;
     Gender gender;
     Type type;
     Adress adress;
-    int age;
+    double age;
     double weight;
 
     public String getName() {
@@ -14,7 +16,14 @@ public class Pet {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if(name == null || name.isBlank()) throw new IllegalArgumentException("preencha o nome do pet!");
+
+        String regex = "^[\\p{L}-]+\\s+[\\p{L}\\s-]+$";
+        if(name.trim().matches(regex)) {
+            this.name = name.trim();
+        } else {
+            throw new IllegalArgumentException("preencha o nome e o sobrenome do pet!");
+        }
     }
 
     public String getBreed() {
@@ -30,6 +39,7 @@ public class Pet {
     }
 
     public void setGender(Gender gender) {
+        if(gender == null) throw new IllegalArgumentException("Escolha pelo menos um sexo entre macho ou femea");
         this.gender = gender;
     }
 
@@ -38,6 +48,7 @@ public class Pet {
     }
 
     public void setType(Type type) {
+        if(type == null) throw new IllegalArgumentException("Escolha pelo menos um tipo entre cachorro ou gato");
         this.type = type;
     }
 
@@ -49,11 +60,12 @@ public class Pet {
         this.adress = adress;
     }
 
-    public int getAge() {
+    public double getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(double age) {
+        if(age < 0 || age > 20) throw  new IllegalArgumentException("idade não pode ser negativa ou maior do que 20");
         this.age = age;
     }
 
@@ -62,6 +74,14 @@ public class Pet {
     }
 
     public void setWeight(double weight) {
+        if(weight < 0.5 || weight > 60) throw new  IllegalArgumentException("Peso não pode ser negativo ou maior do que 60kg!");
         this.weight = weight;
+    }
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        Pet pet = new Pet();
+        pet.setAge(input.nextDouble());
+        System.out.println(pet.getAge());
     }
 }
