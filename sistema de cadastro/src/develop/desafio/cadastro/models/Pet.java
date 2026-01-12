@@ -1,6 +1,6 @@
 package develop.desafio.cadastro.models;
 
-import java.util.Scanner;
+import java.io.File;
 
 public class Pet {
     String name;
@@ -10,6 +10,7 @@ public class Pet {
     Adress adress;
     String age;
     String weight;
+    File file;
 
     public static final String NAO_INFORMADO = "NAO INFORMADO";
 
@@ -68,6 +69,14 @@ public class Pet {
         this.adress = adress;
     }
 
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
     public String getAge() {
         return age;
     }
@@ -77,8 +86,9 @@ public class Pet {
             this.age = NAO_INFORMADO;
             return;
         }
+        String normalizedAge = age.replaceAll("[^0-9.]", "");
         try {
-            float ageFloat = Float.parseFloat(age);
+            float ageFloat = Float.parseFloat(normalizedAge);
             if(ageFloat < 0 || ageFloat > 20) throw new IllegalArgumentException("Idade não pode ser negativa ou maior do que 20!");
             this.age = String.valueOf(ageFloat);
         } catch(NumberFormatException e) {
@@ -95,21 +105,14 @@ public class Pet {
             this.weight = NAO_INFORMADO;
             return;
         }
+        String normalizedWeight = age.replaceAll("[^0-9.]", "");
         try {
-            float weightFloat = Float.parseFloat(weight);
+            float weightFloat = Float.parseFloat(normalizedWeight);
             if(weightFloat < 0.5 || weightFloat > 60) throw new IllegalArgumentException("peso não pode ser menor do que 0.5 ou maior do que 60!");
             this.weight = String.valueOf(weightFloat);
         } catch(NumberFormatException e) {
             e.printStackTrace();
         }
-
     }
 
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        Pet pet = new Pet();
-        pet.setWeight(input.nextLine());
-        System.out.println(pet.getWeight());
-
-    }
 }
